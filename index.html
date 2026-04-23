@@ -194,12 +194,22 @@
     display: block; color: var(--text-muted); font-size: 11.5px;
     margin-top: 4px; line-height: 1.5;
   }
-  #close {
+  .panel-close {
     position: absolute; top: 10px; right: 12px; cursor: pointer;
     color: var(--text-soft); font-size: 18px; line-height: 1;
-    border: none; background: transparent; padding: 2px 6px;
+    border: 0; background: transparent; padding: 2px 6px;
+    font-family: inherit;
+    outline: none; box-shadow: none;
+    -webkit-tap-highlight-color: transparent;
+    appearance: none;
   }
-  #close:hover { color: var(--text); }
+  .panel-close:hover { color: var(--text); }
+  .panel-close::-moz-focus-inner { border: 0; padding: 0; }
+  .panel-close:focus-visible {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 
   /* Caption in the bottom-right, mimicking a figure caption */
   #caption {
@@ -208,6 +218,131 @@
     padding: 12px 14px;
   }
   #caption b { color: var(--text); font-weight: 600; }
+
+  /* Assessment panel (hidden until opened via the Assessment tab) */
+  #assess {
+    position: absolute;
+    top: 22px;
+    left: calc(22px + 322px + 18px);
+    width: 320px;
+    z-index: 10;
+    display: none;
+  }
+  #assess h2 {
+    margin: 0 0 8px 0;
+    font-size: 14px; font-weight: 600; letter-spacing: -0.1px;
+  }
+  #assess .subtitle {
+    color: var(--text-muted); font-size: 11.5px;
+    margin: 0 0 12px 0; padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .assess-button {
+    background: #ffffff;
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 7px 12px;
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 120ms ease, border-color 120ms ease;
+  }
+  .assess-button:hover { background: #f3f3ee; border-color: var(--focus); }
+  .assess-button.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+  }
+  .assess-button.primary:hover { background: #6b1f2a; border-color: #6b1f2a; }
+  .assess-button.danger {
+    background: #ffffff;
+    border-color: var(--border-strong);
+    color: var(--text-muted);
+  }
+  .assess-button:disabled { opacity: 0.4; cursor: not-allowed; }
+  #assess .status-line {
+    font-size: 11.5px; color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 10px;
+  }
+  #assess .status-line b { color: var(--text); font-weight: 600; }
+  #assess .question {
+    background: #fcfcfa;
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    margin-bottom: 10px;
+  }
+  #assess .question .label {
+    font-size: 10px; text-transform: uppercase; letter-spacing: 0.9px;
+    color: var(--text-soft); font-weight: 600; margin-bottom: 4px;
+  }
+  #assess .question .kc-name {
+    font-size: 14px; font-weight: 600; color: var(--text);
+    margin-bottom: 4px;
+  }
+  #assess .question .prob {
+    font-size: 11px; color: var(--text-muted);
+    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  #assess .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+  #assess .actions button { flex: 1; min-width: 70px; }
+  #assess .assess-legend {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid var(--rule);
+    font-size: 10.5px; color: var(--text-muted);
+  }
+  #assess .assess-legend .lrow {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 4px;
+  }
+  #assess .assess-legend .swatch {
+    width: 14px; height: 10px; border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  #assess .prob-bar {
+    width: 100%; height: 8px;
+    background: linear-gradient(90deg,
+      hsl(215, 15%, 96%) 0%,
+      hsl(215, 45%, 45%) 50%,
+      hsl(215, 15%, 96%) 100%);
+    border: 1px solid var(--border);
+    margin: 4px 0 2px 0;
+  }
+  #assess .prob-axis {
+    display: flex; justify-content: space-between;
+    font-size: 9.5px; color: var(--text-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  #assess .final-report {
+    font-size: 11.5px; line-height: 1.55; color: var(--text-muted);
+  }
+  #assess .final-report .group-title {
+    color: var(--text); font-weight: 600; margin-top: 6px;
+  }
+
+  #assess-reopen {
+    position: absolute;
+    top: 22px;
+    left: calc(22px + 322px + 18px);
+    z-index: 10;
+    display: block;
+    background: var(--surface);
+    border: 1px solid var(--border-strong);
+    padding: 7px 14px;
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(20, 20, 15, 0.04);
+    transition: background 120ms ease, border-color 120ms ease;
+  }
+  #assess-reopen:hover { background: #f3f3ee; border-color: var(--focus); }
 </style>
 </head>
 <body>
@@ -241,8 +376,60 @@
   <div id="results"></div>
 </div>
 
+<div id="assess" class="panel">
+  
+  <button id="assess-close" class="panel-close" title="Close">&times;</button>
+  <div class="figure-tag">Adaptive assessment</div>
+  <h2>Estimate student knowledge</h2>
+  <div class="subtitle">
+    Bisects the DAG of knowledge components using MCMC over downward-closed sets.
+    Each question targets the most informative KC (p ≈ 0.5).
+  </div>
+
+  <div id="a-idle">
+    <button id="a-start" class="primary assess-button">Start assessment</button>
+  </div>
+
+  <div id="a-running" style="display:none;">
+    <div class="status-line">
+      Remaining <b id="a-remain">—</b> · Known <b id="a-known">0</b> · Unknown <b id="a-unknown">0</b>
+    </div>
+    <div class="question">
+      <div class="label">Do you know this concept?</div>
+      <div class="kc-name" id="a-candidate">—</div>
+      <div class="prob">p(v) = <span id="a-prob">—</span> &nbsp;<span style="color:var(--text-soft);">(fraction of uniform ideals containing v)</span></div>
+    </div>
+    <div class="actions">
+      <button id="a-yes" class="primary assess-button">Yes</button>
+      <button id="a-no" class="assess-button">No</button>
+      <button id="a-skip" class="assess-button">Skip</button>
+      <button id="a-stop" class="danger assess-button">Stop</button>
+    </div>
+  </div>
+
+  <div id="a-done" style="display:none;">
+    <div class="status-line">
+      Assessment complete — <b id="a-done-known">0</b> known, <b id="a-done-unknown">0</b> unknown.
+    </div>
+    <button id="a-restart" class="assess-button">Restart</button>
+    <button id="a-clear" class="assess-button">Clear view</button>
+    <div class="final-report" id="a-report"></div>
+  </div>
+
+  <div class="assess-legend" id="a-legend">
+    <div class="lrow"><span class="swatch" style="background:#2f6b3a"></span><span>Known (inferred from prereq closure)</span></div>
+    <div class="lrow"><span class="swatch" style="background:#a94438"></span><span>Unknown (inferred from descendants)</span></div>
+    <div class="lrow"><span class="swatch" style="background:#ffffff;border:2px solid #1a1a1a;"></span><span>Current candidate KC</span></div>
+    <div class="lrow" style="margin-top:6px;"><span style="flex:1">Active-node color = p(v), the fraction of uniform ideals containing v</span></div>
+    <div class="prob-bar"></div>
+    <div class="prob-axis"><span>0.0</span><span>0.5</span><span>1.0</span></div>
+  </div>
+</div>
+
+<button id="assess-reopen" title="Open the adaptive assessment">Assessment</button>
+
 <div id="detail" class="panel">
-  <button id="close" title="Close">&times;</button>
+  <button id="close" class="panel-close" title="Close">&times;</button>
   <div class="figure-tag">Concept detail</div>
   <h2 id="d-title"></h2>
   <div>
@@ -452,13 +639,15 @@
   }
   cy.on('tap', 'node', evt => {
     const n = evt.target;
-    const ancestors = n.predecessors();
-    const descendants = n.successors();
-    const keep = ancestors.union(descendants).union(n);
-    cy.batch(() => {
-      cy.elements().addClass('dim').removeClass('hi');
-      keep.removeClass('dim').addClass('hi');
-    });
+    if (!assessMode) {
+      const ancestors = n.predecessors();
+      const descendants = n.successors();
+      const keep = ancestors.union(descendants).union(n);
+      cy.batch(() => {
+        cy.elements().addClass('dim').removeClass('hi');
+        keep.removeClass('dim').addClass('hi');
+      });
+    }
     showDetail(n);
   });
   cy.on('tap', evt => {
@@ -532,6 +721,295 @@
       { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
     ));
   }
+
+  // --- Adaptive MCMC assessment ------------------------------------------
+
+  const N_NODES = raw.nodes.length;
+  const nameToIdx = new Map();
+  raw.nodes.forEach((n, i) => nameToIdx.set(n.name, i));
+  const idxToName = raw.nodes.map(n => n.name);
+  const succ = raw.nodes.map(() => []);
+  const pred = raw.nodes.map(() => []);
+  raw.edges.forEach(e => {
+    const u = nameToIdx.get(e.prereq);
+    const v = nameToIdx.get(e.concept);
+    if (u === undefined || v === undefined) return;
+    succ[u].push(v);
+    pred[v].push(u);
+  });
+
+  const MCMC_STEPS = 1000000;
+
+  function runMCMC(activeArr, nSteps) {
+    const inActive = new Uint8Array(N_NODES);
+    for (const v of activeArr) inActive[v] = 1;
+    const inA = new Uint8Array(N_NODES);
+    const outDegA = new Int32Array(N_NODES);
+    const inDegB = new Int32Array(N_NODES);
+    for (const v of activeArr) {
+      let c = 0;
+      for (const u of pred[v]) if (inActive[u]) c++;
+      inDegB[v] = c;
+    }
+    const p = new Float64Array(N_NODES);
+    const lastEnter = new Float64Array(N_NODES);
+    const m = activeArr.length;
+    if (m === 0) return p;
+    for (let i = 0; i < nSteps; i++) {
+      const k = activeArr[(Math.random() * m) | 0];
+      if (!inA[k] && inDegB[k] === 0) {
+        inA[k] = 1;
+        lastEnter[k] = i;
+        const sk = succ[k];
+        for (let j = 0; j < sk.length; j++) if (inActive[sk[j]]) inDegB[sk[j]]--;
+        const pk = pred[k];
+        for (let j = 0; j < pk.length; j++) if (inActive[pk[j]]) outDegA[pk[j]]++;
+      } else if (inA[k] && outDegA[k] === 0) {
+        inA[k] = 0;
+        p[k] += i - lastEnter[k];
+        const sk = succ[k];
+        for (let j = 0; j < sk.length; j++) if (inActive[sk[j]]) inDegB[sk[j]]++;
+        const pk = pred[k];
+        for (let j = 0; j < pk.length; j++) if (inActive[pk[j]]) outDegA[pk[j]]--;
+      }
+    }
+    for (const k of activeArr) if (inA[k]) p[k] += nSteps - lastEnter[k];
+    for (let i = 0; i < N_NODES; i++) p[i] /= nSteps;
+    return p;
+  }
+
+  function reachableFrom(start, neighbors, activeSet) {
+    const seen = new Set();
+    const stack = [start];
+    while (stack.length) {
+      const u = stack.pop();
+      if (seen.has(u)) continue;
+      seen.add(u);
+      const ns = neighbors[u];
+      for (let j = 0; j < ns.length; j++) {
+        const w = ns[j];
+        if (activeSet.has(w) && !seen.has(w)) stack.push(w);
+      }
+    }
+    return seen;
+  }
+
+  // Assessment state
+  let assessMode = false;
+  let assessActive = null;
+  let assessKnown = null;
+  let assessUnknown = null;
+  let assessSkipped = null;
+  let assessProbs = null;
+  let assessCandidate = null;
+
+  const COLOR_KNOWN      = '#2f6b3a';
+  const COLOR_UNKNOWN    = '#a94438';
+  const COLOR_CANDIDATE  = '#1a1a1a';
+
+  // Symmetric information-peak ramp: white near the certain ends (p≈0 or
+  // p≈1) and deep blue near the maximally-uncertain middle (p≈0.5). The
+  // coloring therefore encodes "how informative is this KC right now",
+  // which is exactly what the selection rule v* = argmin |p - 0.5| uses.
+  function probColor(p) {
+    const d = Math.abs(p - 0.5) * 2; // 0 at p=0.5, 1 at p∈{0,1}
+    const s = 55 - 40 * d;
+    const L = 35 + 61 * d;
+    return `hsl(215, ${s.toFixed(1)}%, ${L.toFixed(1)}%)`;
+  }
+
+  function paintAssessment() {
+    cy.batch(() => {
+      cy.nodes().forEach(n => {
+        const idx = nameToIdx.get(n.id());
+        let bg, outline;
+        if (assessKnown.has(idx)) {
+          bg = outline = COLOR_KNOWN;
+          n.style('opacity', 1);
+        } else if (assessUnknown.has(idx)) {
+          bg = outline = COLOR_UNKNOWN;
+          n.style('opacity', 1);
+        } else {
+          const p = assessProbs ? assessProbs[idx] : 0.5;
+          bg = outline = probColor(p);
+          n.style('opacity', 1);
+        }
+        n.style('background-color', bg);
+        n.style('text-outline-color', outline);
+        const isDark = assessKnown.has(idx)
+          || assessUnknown.has(idx)
+          || (assessProbs && !assessKnown.has(idx) && !assessUnknown.has(idx)
+              && Math.abs(assessProbs[idx] - 0.5) < 0.15);
+        n.style('color', isDark ? '#ffffff' : '#1a1a1a');
+        if (idx === assessCandidate) {
+          n.style('border-color', COLOR_CANDIDATE);
+          n.style('border-width', 3);
+        } else {
+          n.removeStyle('border-color');
+          n.removeStyle('border-width');
+        }
+      });
+      // Dim edges that have both endpoints already classified to let the
+      // remaining uncertain cone stand out.
+      cy.edges().forEach(ed => {
+        const a = nameToIdx.get(ed.source().id());
+        const b = nameToIdx.get(ed.target().id());
+        const aDone = assessKnown.has(a) || assessUnknown.has(a);
+        const bDone = assessKnown.has(b) || assessUnknown.has(b);
+        ed.style('opacity', aDone && bDone ? 0.18 : 0.85);
+      });
+    });
+  }
+
+  function clearAssessmentPaint() {
+    cy.batch(() => {
+      cy.nodes().forEach(n => {
+        n.removeStyle('background-color');
+        n.removeStyle('text-outline-color');
+        n.removeStyle('color');
+        n.removeStyle('opacity');
+        n.removeStyle('border-color');
+        n.removeStyle('border-width');
+      });
+      cy.edges().forEach(ed => ed.removeStyle('opacity'));
+    });
+  }
+
+  function showView(which) {
+    document.getElementById('a-idle').style.display    = which === 'idle'    ? '' : 'none';
+    document.getElementById('a-running').style.display = which === 'running' ? '' : 'none';
+    document.getElementById('a-done').style.display    = which === 'done'    ? '' : 'none';
+  }
+
+  function updateStatus() {
+    document.getElementById('a-remain').textContent  = assessActive.size;
+    document.getElementById('a-known').textContent   = assessKnown.size;
+    document.getElementById('a-unknown').textContent = assessUnknown.size;
+    if (assessCandidate !== null) {
+      document.getElementById('a-candidate').textContent = idxToName[assessCandidate];
+      document.getElementById('a-prob').textContent = assessProbs[assessCandidate].toFixed(3);
+    }
+  }
+
+  function pickCandidate() {
+    const active = [...assessActive];
+    if (active.length === 0) return null;
+    assessProbs = runMCMC(active, MCMC_STEPS);
+    let best = active[0];
+    let bestDiff = Math.abs(assessProbs[best] - 0.5);
+    for (let i = 1; i < active.length; i++) {
+      const v = active[i];
+      const d = Math.abs(assessProbs[v] - 0.5);
+      if (d < bestDiff) { bestDiff = d; best = v; }
+    }
+    return best;
+  }
+
+  function advanceAssessment() {
+    if (assessActive.size === 0) {
+      assessCandidate = null;
+      assessProbs = null;
+      paintAssessment();
+      finishAssessment();
+      return;
+    }
+    assessCandidate = pickCandidate();
+    paintAssessment();
+    updateStatus();
+  }
+
+  function finishAssessment() {
+    showView('done');
+    document.getElementById('a-done-known').textContent   = assessKnown.size;
+    document.getElementById('a-done-unknown').textContent = assessUnknown.size;
+    const report = document.getElementById('a-report');
+    const knownNames   = [...assessKnown].map(i => idxToName[i]).sort();
+    const unknownNames = [...assessUnknown].map(i => idxToName[i]).sort();
+    report.innerHTML =
+      (knownNames.length
+        ? `<div class="group-title">Known (${knownNames.length})</div>${knownNames.map(escapeHtml).join(', ')}`
+        : '') +
+      (unknownNames.length
+        ? `<div class="group-title">Unknown (${unknownNames.length})</div>${unknownNames.map(escapeHtml).join(', ')}`
+        : '');
+  }
+
+  function startAssessment() {
+    assessMode = true;
+    assessActive  = new Set();
+    for (let i = 0; i < N_NODES; i++) assessActive.add(i);
+    assessKnown   = new Set();
+    assessUnknown = new Set();
+    assessSkipped = new Set();
+    assessProbs = null;
+    assessCandidate = null;
+    clearFocus();
+    hideDetail();
+    showView('running');
+    advanceAssessment();
+  }
+
+  function answer(yes) {
+    if (!assessMode || assessCandidate === null) return;
+    const newly = yes
+      ? reachableFrom(assessCandidate, pred, assessActive)
+      : reachableFrom(assessCandidate, succ, assessActive);
+    const target = yes ? assessKnown : assessUnknown;
+    for (const v of newly) {
+      target.add(v);
+      assessActive.delete(v);
+    }
+    advanceAssessment();
+  }
+
+  function skipCandidate() {
+    if (!assessMode || assessCandidate === null) return;
+    // Temporarily drop the candidate from the active set so a different
+    // question is drawn; remember it so it can be revisited if nothing
+    // else remains.
+    assessSkipped.add(assessCandidate);
+    assessActive.delete(assessCandidate);
+    if (assessActive.size === 0 && assessSkipped.size > 0) {
+      for (const v of assessSkipped) assessActive.add(v);
+      assessSkipped.clear();
+    }
+    advanceAssessment();
+  }
+
+  function stopAssessment() {
+    assessMode = false;
+    clearAssessmentPaint();
+    if ((assessKnown && assessKnown.size) || (assessUnknown && assessUnknown.size)) {
+      finishAssessment();
+    } else {
+      showView('idle');
+    }
+  }
+
+  document.getElementById('a-start').addEventListener('click', startAssessment);
+  document.getElementById('a-yes').addEventListener('click', () => answer(true));
+  document.getElementById('a-no').addEventListener('click', () => answer(false));
+  document.getElementById('a-skip').addEventListener('click', skipCandidate);
+  document.getElementById('a-stop').addEventListener('click', stopAssessment);
+  document.getElementById('a-restart').addEventListener('click', startAssessment);
+  document.getElementById('a-clear').addEventListener('click', () => {
+    clearAssessmentPaint();
+    showView('idle');
+    assessMode = false;
+    assessActive = assessKnown = assessUnknown = assessSkipped = null;
+    assessProbs = null; assessCandidate = null;
+  });
+
+  const assessPanel  = document.getElementById('assess');
+  const assessReopen = document.getElementById('assess-reopen');
+  document.getElementById('assess-close').addEventListener('click', () => {
+    assessPanel.style.display  = 'none';
+    assessReopen.style.display = 'block';
+  });
+  assessReopen.addEventListener('click', () => {
+    assessPanel.style.display  = 'block';
+    assessReopen.style.display = 'none';
+  });
 
   // Search.
   const searchInput = document.getElementById('search');
