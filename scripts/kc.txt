@@ -1,0 +1,46 @@
+Bit operations
+Modular arithmetic
+Prefix sums
+Brute force
+Complete search
+Backtracking
+Greedy algorithms
+Dynamic programming
+Divide and conquer
+Binary search
+Two pointers
+Sliding window
+Geometry
+Sweep line
+Deque
+Priority queue
+Hash map
+Union-find
+Fenwick tree
+Segment tree
+Sparse table
+Trie
+DFS
+BFS
+Topological sort
+Connected components
+Bipartite graph
+Dijkstra
+Bellman-Ford
+Floyd-Warshall
+Kruskal
+Kosaraju algorithm
+Max flow
+Convex hull trick
+KMP
+Z-function
+Rolling hash
+Convex hull
+Heavy-light decomposition
+Centroid decomposition
+Mo's algorithm
+Lazy propagation
+Tarjan algorithm
+Fast Fourier Transform
+Graphs
+Trees
